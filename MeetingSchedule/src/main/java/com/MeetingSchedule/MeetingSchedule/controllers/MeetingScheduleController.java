@@ -44,7 +44,7 @@ public class MeetingScheduleController {
         mav.addObject("booking", new Booking());
         
         String start = booking.getDatestart();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //convert String to LocalDate
 LocalDate date1 = LocalDate.parse(start, formatter);
 //        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(start);
@@ -55,7 +55,7 @@ LocalDate date1 = LocalDate.parse(start, formatter);
 //        LocalDate date11 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 //        LocalDate date22 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
-            String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             bookingService.saverequest(id, employeeid, name, time, datestart, formattedDate, dateend, room);
     }
 
@@ -175,6 +175,17 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         }
     }
 
+    
+    //view booking accepted employee
+    @GetMapping("/search")
+    public String search(Model model, String datenow) {
+        model.addAttribute("booking", new Booking());
+        model.addAttribute("bookings", bookingService.getactive());
+//        model.addAttribute("accepted", bookingService.getaccepted());
+        model.addAttribute("declined", bookingService.getdeclined());
+        model.addAttribute("accepted", bookingService.search(datenow));
+        return "redirect:/meetingschedule";
+    }
  //halaman booking admin
     @GetMapping("/bookingAdmin")
     public String bookingAdmin(Model model) {

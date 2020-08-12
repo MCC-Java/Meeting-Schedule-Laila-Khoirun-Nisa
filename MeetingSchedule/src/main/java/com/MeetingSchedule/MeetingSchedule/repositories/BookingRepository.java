@@ -60,4 +60,8 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     @Query(value = "UPDATE booking b SET b.room =:room, b.kodeapproval =2 WHERE b.id  =:id", nativeQuery = true)
     void updateroom(@Param("id") String id, @Param("room") String room);
 
+
+ @Query(value ="SELECT * FROM booking b WHERE b.datenow like %?1%", nativeQuery=true)
+    Collection<Booking> search(String datenow);
+//List<Booking> findAllWithId(Specification<Region> spec);    
 }

@@ -7,6 +7,7 @@ package com.MeetingSchedule.MeetingSchedule.services;
 
 import com.MeetingSchedule.MeetingSchedule.entities.Booking;
 import com.MeetingSchedule.MeetingSchedule.repositories.BookingRepository;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -85,4 +86,8 @@ public class BookingService {
         bookingRepository.findById(id).get().setKodeapproval(2);
         bookingRepository.updateroom(id, room);
     }
+         public Collection<Booking> search(String datenow) {
+        return bookingRepository.search(datenow);
+    }
+
 }
