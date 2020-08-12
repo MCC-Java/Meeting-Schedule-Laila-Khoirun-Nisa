@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+
+        <!-- Custom Theme Style -->
+        <link href="../build/css/custom.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="login_wrapper">
+            <div class="animate form register_form">
+                <section class="login_content">
+                    <form th:action="@{/checkRegister}" th:object="${employee}" method="POST">
+                        <h1>Register Form</h1>
+                        <div>
+                            <input type="text" id="txtPassowrd" class="form-control" th:field="*{id}" placeholder="ID Employee" required />
+                        </div>
+
+                        <div>
+                            <input type="text" id="txtUsername" class="form-control" th:field="*{name}" placeholder="Username"  required />
+                        </div>
+                        <div>
+                            <input type="password" id="txtPassowrd" class="form-control" th:field="*{password}" placeholder="Password" required />
+                        </div>
+                        <div>
+                            <input type="number" id="txtPassowrd" class="form-control" th:field="*{role}" placeholder="Role" required />
+                        </div>
+                        <br>
+                        <div>
+                            <input type="text" id="txtPassowrd" class="form-control" th:field="*{departmentid}" placeholder="ID Department" required />
+                        </div>
+                        
+                        <div>
+                            <input type="text" id="txtPassowrd" class="form-control" th:field="*{teamid}" placeholder="ID Team" required />
+                        </div>
+
+                        <div>
+                            <button type ="submit" value="Save"  class="btn btn-primary" >Submit</button>
+
+                        </div> 
+                    </form>
+                    </body>
+                    </html>
