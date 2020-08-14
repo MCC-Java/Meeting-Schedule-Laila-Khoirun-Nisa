@@ -11,6 +11,7 @@ import com.MeetingSchedule.MeetingSchedule.services.BookingService;
 import com.MeetingSchedule.MeetingSchedule.services.EmployeeService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class MeetingScheduleController {
 
     @Autowired
     BookingService bookingService;
-    
+
     @Autowired
     EmployeeService employeeService;
 //save sisi employee
@@ -42,11 +43,11 @@ public class MeetingScheduleController {
         ModelAndView mav = new ModelAndView("redirect:/booking");
         mav.addObject("bookings", bookingService.getactive());
         mav.addObject("booking", new Booking());
-        
+
         String start = booking.getDatestart();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //convert String to LocalDate
-LocalDate date1 = LocalDate.parse(start, formatter);
+        LocalDate date1 = LocalDate.parse(start, formatter);
 //        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(start);
         String end = booking.getDateend();
         LocalDate date2 = LocalDate.parse(end, formatter);
@@ -54,17 +55,14 @@ LocalDate date1 = LocalDate.parse(start, formatter);
 
 //        LocalDate date11 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 //        LocalDate date22 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
-            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            bookingService.saverequest(id, employeeid, name, time, datestart, formattedDate, dateend, room);
-    }
+//        for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
+//            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        bookingService.saveschedule(id, employeeid, name, time, datestart,formattedDate, dateend, room);
+//    }
 
-    bookingService.saverequest(id, employeeid, name, time, datestart, dateend, dateend, room);
-    return mav;
+    bookingService.saverequest(id, employeeid, name, time, datestart,  dateend, room);
+        return mav;
     }
-    
-       
-    
 
 //     @PostMapping("/save")
 //    public ModelAndView save(@Valid Fakultas fakultas) {
@@ -75,7 +73,6 @@ LocalDate date1 = LocalDate.parse(start, formatter);
 //        fakultasService.save(fakultas); 
 //        return mav; 
 //    }
-    
     //halaman booking employee
     @GetMapping("/booking")
     public String bookingEmployee(Model model) {
@@ -83,7 +80,7 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         model.addAttribute("bookings", bookingService.getactive());
         return "bookingView";
     }
-    
+
     //view booking accepted employee
     @GetMapping("/bookingAccepted")
     public String bookingAccepted(Model model) {
@@ -93,8 +90,8 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         model.addAttribute("declined", bookingService.getdeclined());
         return "bookingViewAccepted";
     }
-    
-        //view booking declined employee
+
+    //view booking declined employee
     @GetMapping("/bookingDeclined")
     public String bookingDeclined(Model model) {
         model.addAttribute("booking", new Booking());
@@ -103,31 +100,32 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         model.addAttribute("declined", bookingService.getdeclined());
         return "bookingViewDeclined";
     }
-    
+
 //updateroom    
     @GetMapping("/updateroom/{id}/{room}")
     public String updateroom(@PathVariable(name = "id") String id, @PathVariable(name = "room") String room) {
         bookingService.updateroom(id, room);
         return "redirect:/booking";
     }
- //login
-       @GetMapping("")
+    //login
+
+    @GetMapping("")
     public String awal(Model model) {
         model.addAttribute("employee", new Employee());
         return "login";
     }
-    
+
     //schedule
-       @GetMapping("/meetingschedule")
+    @GetMapping("/meetingschedule")
     public String schedule(Model model) {
-       
-         model.addAttribute("booking", new Booking());
+
+        model.addAttribute("booking", new Booking());
         model.addAttribute("accepted", bookingService.getaccepted());
-       
+
         return "scheduleView";
-       }
-    
-     @RequestMapping("/login")
+    }
+
+    @RequestMapping("/login")
     public ModelAndView Login(@ModelAttribute(name = "employee") Employee employee) {
         String name = employee.getName();
         String password = employee.getPassword();
@@ -140,8 +138,7 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         }
 
     }
-    
-    
+
     //check login
     @RequestMapping("/check")
     public String checkLogin(@ModelAttribute(name = "employee") Employee employee, Model model) {
@@ -150,16 +147,16 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         String password = employee.getPassword();
         String id = employee.getId();
 
-         boolean result = false;
-        List<Employee> employees = employeeService.getAll(); 
-        for (Employee emp : employees) { 
+        boolean result = false;
+        List<Employee> employees = employeeService.getAll();
+        for (Employee emp : employees) {
             if (emp.getId().equals(id)) {
                 result = true;
             }
         }
         if (result == true) {
             Employee employee1 = employeeService.getById(id);
-            if (employee1.getRole()== 1) {
+            if (employee1.getRole() == 1) {
                 model.addAttribute("bookings", bookingService.getactive());
                 model.addAttribute("booking", new Booking());
                 model.addAttribute("id", id);
@@ -175,7 +172,6 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         }
     }
 
-    
     //view booking accepted employee
     @GetMapping("/search")
     public String search(Model model, String datenow) {
@@ -186,7 +182,8 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         model.addAttribute("accepted", bookingService.search(datenow));
         return "redirect:/meetingschedule";
     }
- //halaman booking admin
+    //halaman booking admin
+
     @GetMapping("/bookingAdmin")
     public String bookingAdmin(Model model) {
         model.addAttribute("booking", new Booking());
@@ -196,44 +193,92 @@ LocalDate date1 = LocalDate.parse(start, formatter);
         return "bookingViewAdmin";
     }
 
-    @GetMapping("/acceptrequest/{id}/{noteapproval}")
-    public String accept(@PathVariable(name = "id") String id, @PathVariable(name = "noteapproval") String noteapproval) {
-        bookingService.adminaccept(id, noteapproval);
-        return "redirect:/bookingAdminAccepted";
+    @GetMapping("/acceptrequest/{id}")
+    public String accept(@PathVariable(name = "id") String id) {
+        bookingService.adminaccept(id);
+        return "redirect:/saveschedule/{id}";
     }
 
-    @GetMapping("/rejectrequest/{id}/{noteapproval}")
-    public String decline(@PathVariable(name = "id") String id, @PathVariable(name = "noteapproval") String noteapproval) {
+    
+    @GetMapping("/saveschedule/{id}")
+    public ModelAndView saveSchedule(@PathVariable(name = "id") String id, Booking booking) throws Exception {
+        ModelAndView mav = new ModelAndView("redirect:/bookingAdminAccepted");
+        String employeeid=bookingService.getEmployeeId(id);
+        String name=bookingService.getNameEmployee(id);
+        String time =bookingService.getTimeSchedule(id);
+        String datestart=bookingService.getDateStart(id);
+        String dateend=bookingService.getDateEnd(id);
+        String room=bookingService.getRoomSchedule(id);
+        
+        String start = datestart;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //convert String to LocalDate
+        LocalDate date1 = LocalDate.parse(start, formatter);
+//        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(start);
+        String end = dateend;
+        LocalDate date2 = LocalDate.parse(end, formatter);
+//        Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+        for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            if (date==date1){
+                bookingService.updatedatenow(id, formattedDate);
+            }
+            else{
+            bookingService.savescheduleaccept(id, employeeid, name, time, datestart,formattedDate, dateend, room);
+            }
+    }
+
+    bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend,dateend, room);
+            return mav;
+        }
+
+        @GetMapping("/rejectrequest/{id}/{noteapproval}")
+        public String decline
+        (@PathVariable(name = "id")
+        String id, 
+        @PathVariable(name = "noteapproval") String noteapproval
+        
+            ) {
         bookingService.adminrefuse(id, noteapproval);
-        return "redirect:/bookingAdminDeclined";
-    }
-    
-    
-    @GetMapping("/rejectrequestgetroom/{id}/{alternativeroom}")
-    public String declinegetroom(@PathVariable(name = "id") String id, @PathVariable(name = "alternativeroom") String alternativeroom) {
+            return "redirect:/bookingAdminDeclined";
+        }
+
+        @GetMapping("/rejectrequestgetroom/{id}/{alternativeroom}")
+        public String declinegetroom
+        (@PathVariable(name = "id")
+        String id, 
+        @PathVariable(name = "alternativeroom") String alternativeroom
+        
+            ) {
         bookingService.adminrefusegetroom(id, alternativeroom);
-        return "redirect:/bookingAdminDeclined";
-    }
-    
-    //halaman booking admin declined
-    @GetMapping("/bookingAdminDeclined")
-    public String bookingAdminDeclined(Model model) {
+            return "redirect:/bookingAdminDeclined";
+        }
+
+        //halaman booking admin declined
+        @GetMapping("/bookingAdminDeclined")
+        public String bookingAdminDeclined
+        (Model model
+        
+            ) {
         model.addAttribute("booking", new Booking());
-        model.addAttribute("bookings", bookingService.getactive());
-        model.addAttribute("accepted", bookingService.getaccepted());
-        model.addAttribute("declined", bookingService.getdeclined());
-        return "bookingViewAdminDeclined";
-    }
-    
-     //halaman booking admin accepted
-    @GetMapping("/bookingAdminAccepted")
-    public String bookingAdminAccepted(Model model) {
+            model.addAttribute("bookings", bookingService.getactive());
+            model.addAttribute("accepted", bookingService.getaccepted());
+            model.addAttribute("declined", bookingService.getdeclined());
+            return "bookingViewAdminDeclined";
+        }
+
+        //halaman booking admin accepted
+        @GetMapping("/bookingAdminAccepted")
+        public String bookingAdminAccepted
+        (Model model
+        
+            ) {
         model.addAttribute("booking", new Booking());
-        model.addAttribute("bookings", bookingService.getactive());
-        model.addAttribute("accepted", bookingService.getaccepted());
-        model.addAttribute("declined", bookingService.getdeclined());
-        return "bookingViewAdminAccepted";
-    }
+            model.addAttribute("bookings", bookingService.getactive());
+            model.addAttribute("accepted", bookingService.getaccepted());
+            model.addAttribute("declined", bookingService.getdeclined());
+            return "bookingViewAdminAccepted";
+        }
 //    @GetMapping("")
 //    public ModelAndView homeLogin(@Valid Booking booking) {
 //        ModelAndView mav = new ModelAndView("index");
@@ -250,42 +295,61 @@ LocalDate date1 = LocalDate.parse(start, formatter);
 //        bookingServices.saverequest(id, employeeid, name, time, datestart, dateend, room);
 //        return "redirect:/requestmeeting/" + id;
 //    }
-    @GetMapping("/requestmeeting/{id}")
-    public String request(@PathVariable(name = "nim") String id, Model model) {
-        model.addAttribute("booking", bookingService.getById(id));
-//        model.addAttribute("active", Requestservices.findactivemhs(nim));
-//        model.addAttribute("accept", Requestservices.findaccmhs(nim));
-//        model.addAttribute("reject", Requestservices.findrejectmhs(nim));
-        return "index";
-    }
-    @GetMapping("/register")
-    public ModelAndView Register() {
+//        @GetMapping("/requestmeeting/{id}")
+//        public String request
+//        (@PathVariable(name = "nim")
+//        String id, Model model
+//        
+//            ) {
+//        model.addAttribute("booking", bookingService.getById(id));
+////        model.addAttribute("active", Requestservices.findactivemhs(nim));
+////        model.addAttribute("accept", Requestservices.findaccmhs(nim));
+////        model.addAttribute("reject", Requestservices.findrejectmhs(nim));
+//            return "index";
+//        }
+        @GetMapping("/register")
+        public ModelAndView Register
+        
+            () {
         ModelAndView mav = new ModelAndView("registerAdmin");
-        mav.addObject("employee", new Employee());
-        mav.addObject("employees", employeeService.getAll());
-        return mav;
-    }
-    
-    @PostMapping("/showRegister")
-    public ModelAndView showRegister(@Valid Employee employee, String id, String name, String password, int role, String departmentid, String teamid){
-        ModelAndView mav = new ModelAndView("redirect:/");
-        mav.addObject("employees", employeeService.getAll());
-        mav.addObject("employee", new Booking());
+            mav.addObject("employee", new Employee());
+            mav.addObject("employees", employeeService.getAll());
+            return mav;
+        }
 
-    employeeService.saveRegister(id, name, password, role, departmentid, teamid);
-    return mav;
-    }
-    @PostMapping("/checkRegister")
-    public ModelAndView checkRegister(@Valid Employee employee, Model model, String id,String name,String password,int role,String departmentid,String teamid) {
+        @PostMapping("/showRegister")
+        public ModelAndView showRegister
+        (@Valid
+        Employee employee, String id
+        , String name, String password
+        , int role, String departmentid
+        , String teamid
+        
+            ){
+        ModelAndView mav = new ModelAndView("redirect:/");
+            mav.addObject("employees", employeeService.getAll());
+            mav.addObject("employee", new Booking());
+
+            employeeService.saveRegister(id, name, password, role, departmentid, teamid);
+            return mav;
+        }
+        @PostMapping("/checkRegister")
+        public ModelAndView checkRegister
+        (@Valid
+        Employee employee, Model model
+        , String id, String name
+        ,String password,
+        int role, String departmentid
+        ,String teamid
+        
+            ) {
         
         ModelAndView mav = new ModelAndView("redirect:/register");
-        mav.addObject("employees", employeeService.getAll());
-        mav.addObject("employee", new Employee());
-        
+            mav.addObject("employees", employeeService.getAll());
+            mav.addObject("employee", new Employee());
+
 //        String name1 = employee.getName();
-        
 //        Integer type = 2;
-       
 //        List<Employee> employees = employeeService.getAll();
 //        boolean result = false;
 //        for (Employee emp : employees) {
@@ -301,13 +365,16 @@ LocalDate date1 = LocalDate.parse(start, formatter);
 //        } else {
             return mav;
 //        }
-    }
- @GetMapping("/meetingScheduleAdmin")
-    public String scheduleAdmin(Model model) {
+        }
+        @GetMapping("/meetingScheduleAdmin")
+        public String scheduleAdmin
+        (Model model
+        
+            ) {
        
          model.addAttribute("booking", new Booking());
-        model.addAttribute("accepted", bookingService.getaccepted());
-       
-        return "scheduleViewAdmin";
-       }
-}
+            model.addAttribute("accepted", bookingService.getaccepted());
+
+            return "scheduleViewAdmin";
+        }
+    }

@@ -56,14 +56,22 @@ public class BookingService {
 //    public List<Booking> getById(String id) {
 //        return bookingRepository.findById(id).get();
 //    }
-     public void saverequest(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
-        bookingRepository.saverequest(id, employeeid, name, time, datestart, datenow, dateend, room, 1);
+
+     public void saveschedule(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
+        bookingRepository.saveschedule(id, employeeid, name, time, datestart, datenow, dateend, room, 1);
+    }
+public void savescheduleaccept(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
+        bookingRepository.saveschedule(id, employeeid, name, time, datestart, datenow, dateend, room, 2);
+    }
+     
+     public void saverequest(String id, String employeeid, String name, String time, String datestart, String dateend, String room){
+        bookingRepository.saverequest(id, employeeid, name, time, datestart, dateend, room, 1);
     }
      public Booking getById(String id) {
         return bookingRepository.findById(id).get();
     }
-    public void adminaccept(String id, String noteapproval){
-        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
+    public void adminaccept(String id){
+//        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
         bookingRepository.findById(id).get().setKodeapproval(2);
         
      bookingRepository.adminaccept(id);
@@ -86,8 +94,37 @@ public class BookingService {
         bookingRepository.findById(id).get().setKodeapproval(2);
         bookingRepository.updateroom(id, room);
     }
+    
+    public void updatedatenow(String id, String datenow){
+        bookingRepository.findById(id).get().setDatenow(datenow);
+        bookingRepository.updatedatenow(id, datenow);
+    }
+        
          public Collection<Booking> search(String datenow) {
         return bookingRepository.search(datenow);
+    }
+public String getEmployeeId(String id){
+        return bookingRepository.findById(id).get().getEmployeeid();
+    }
+
+public String getDateStart(String id){
+        return bookingRepository.findById(id).get().getDatestart();
+    }
+
+public String getDateEnd(String id){
+        return bookingRepository.findById(id).get().getDateend();
+    }
+
+public String getNameEmployee(String id){
+        return bookingRepository.findById(id).get().getName();
+    }
+
+public String getTimeSchedule(String id){
+        return bookingRepository.findById(id).get().getTime();
+    }
+
+public String getRoomSchedule(String id){
+        return bookingRepository.findById(id).get().getRoom();
     }
 
 }

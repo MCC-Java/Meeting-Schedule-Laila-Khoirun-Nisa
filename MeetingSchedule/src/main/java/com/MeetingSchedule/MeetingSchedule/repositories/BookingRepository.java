@@ -21,9 +21,14 @@ import org.springframework.stereotype.Repository;
 public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Modifying
-    @Query(value = "INSERT INTO booking(id,employeeid,name,time,datestart,datenow, dateend, room, kodeapproval) VALUES (?1,?2,?3,?4,?5,?6,?7,?8, ?9);", nativeQuery = true)
-    void saverequest(String id, String employeeid, String name, String time, String datestart, String datenow, String dateend, String room, int kodeapproval);
+    @Query(value = "INSERT INTO booking(id,employeeid,name,time,datestart, dateend, room, kodeapproval) VALUES (?1,?2,?3,?4,?5,?6,?7,?8);", nativeQuery = true)
+    void saverequest(String id, String employeeid, String name, String time, String datestart, String dateend, String room, int kodeapproval);
 
+    
+    @Modifying
+    @Query(value = "INSERT INTO booking(id,employeeid,name,time,datestart, datenow, dateend, room, kodeapproval) VALUES (?1,?2,?3,?4,?5,?6,?7,?8, ?9);", nativeQuery = true)
+    void saveschedule(String id, String employeeid, String name, String time, String datestart, String datenow, String dateend, String room, int kodeapproval);
+    
     @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
             + "FROM booking b join employee e "
             + "ON e.id=b.employeeid"
@@ -64,4 +69,9 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
  @Query(value ="SELECT * FROM booking b WHERE b.datenow like %?1%", nativeQuery=true)
     Collection<Booking> search(String datenow);
 //List<Booking> findAllWithId(Specification<Region> spec);    
+    
+       @Modifying
+    @Query(value = "UPDATE booking b SET b.datenow =:datenow WHERE b.id  =:id", nativeQuery = true)
+    void updatedatenow(@Param("id") String id, @Param("datenow") String datenow);
+
 }
