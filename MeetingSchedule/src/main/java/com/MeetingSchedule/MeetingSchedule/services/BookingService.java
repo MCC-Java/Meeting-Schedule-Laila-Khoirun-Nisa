@@ -63,6 +63,9 @@ public class BookingService {
 public void savescheduleaccept(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
         bookingRepository.saveschedule(id, employeeid, name, time, datestart, datenow, dateend, room, 2);
     }
+public void savescheduledecline(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
+        bookingRepository.saveschedule(id, employeeid, name, time, datestart, datenow, dateend, room, 3);
+    }
      
      public void saverequest(String id, String employeeid, String name, String time, String datestart, String dateend, String room){
         bookingRepository.saverequest(id, employeeid, name, time, datestart, dateend, room, 1);
@@ -126,5 +129,12 @@ public String getTimeSchedule(String id){
 public String getRoomSchedule(String id){
         return bookingRepository.findById(id).get().getRoom();
     }
-
+public Long getsame (String datenow, String time, String room){
+     return bookingRepository.countsame(datenow, time, room);
+        
+}
+public void deletegagal(String id){
+        bookingRepository.findById(id);
+        bookingRepository.deletegagal(id);
+    }
 }

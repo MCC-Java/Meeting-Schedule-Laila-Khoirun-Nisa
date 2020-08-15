@@ -24,11 +24,10 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     @Query(value = "INSERT INTO booking(id,employeeid,name,time,datestart, dateend, room, kodeapproval) VALUES (?1,?2,?3,?4,?5,?6,?7,?8);", nativeQuery = true)
     void saverequest(String id, String employeeid, String name, String time, String datestart, String dateend, String room, int kodeapproval);
 
-    
     @Modifying
     @Query(value = "INSERT INTO booking(id,employeeid,name,time,datestart, datenow, dateend, room, kodeapproval) VALUES (?1,?2,?3,?4,?5,?6,?7,?8, ?9);", nativeQuery = true)
     void saveschedule(String id, String employeeid, String name, String time, String datestart, String datenow, String dateend, String room, int kodeapproval);
-    
+
     @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
             + "FROM booking b join employee e "
             + "ON e.id=b.employeeid"
@@ -37,22 +36,21 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     )
     Collection<Booking> findactive();
 
-        @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
+    @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
             + "FROM booking b join employee e "
             + "ON e.id=b.employeeid"
             + " JOIN room r ON r.id=b.room WHERE kodeapproval=2",
             nativeQuery = true
     )
     Collection<Booking> findaccept();
-    
-        @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
+
+    @Query(value = "SELECT b.id, b.employeeid, b.noteapproval,b.room, e.id, b.name, b.time, b.datestart, b.datenow,b.dateend, b.alternativeroom, b.kodeapproval, r.name "
             + "FROM booking b join employee e "
             + "ON e.id=b.employeeid"
             + " JOIN room r ON r.id=b.room WHERE kodeapproval=3",
             nativeQuery = true
     )
     Collection<Booking> finddecline();
-    
 
     @Modifying
     @Query(value = "UPDATE booking b SET b.kodeapproval =2 WHERE b.id  =:id", nativeQuery = true)
@@ -61,17 +59,24 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     @Modifying
     @Query(value = "UPDATE booking b SET b.kodeapproval =3 WHERE b.id  =:id", nativeQuery = true)
     void admindecline(@Param("id") String id);
+
     @Modifying
     @Query(value = "UPDATE booking b SET b.room =:room, b.kodeapproval =2 WHERE b.id  =:id", nativeQuery = true)
     void updateroom(@Param("id") String id, @Param("room") String room);
 
-
- @Query(value ="SELECT * FROM booking b WHERE b.datenow like %?1%", nativeQuery=true)
+    @Query(value = "SELECT * FROM booking b WHERE b.datenow like %?1%", nativeQuery = true)
     Collection<Booking> search(String datenow);
 //List<Booking> findAllWithId(Specification<Region> spec);    
-    
-       @Modifying
+
+    @Modifying
     @Query(value = "UPDATE booking b SET b.datenow =:datenow WHERE b.id  =:id", nativeQuery = true)
     void updatedatenow(@Param("id") String id, @Param("datenow") String datenow);
+
+    @Query(value = "SELECT count(*) FROM booking b WHERE b.datenow=:datenow AND time=:time AND room=:room AND kodeapproval=2;", nativeQuery = true)
+    Long countsame(@Param("datenow") String datenow, @Param("time") String time, @Param("room") String room);
+
+    @Modifying
+    @Query(value = "DELETE FROM booking WHERE (id =:id);", nativeQuery = true)
+    void deletegagal(@Param("id") String id);
 
 }
