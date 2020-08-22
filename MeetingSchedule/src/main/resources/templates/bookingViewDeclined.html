@@ -206,6 +206,8 @@
                                                                 <th>Time</th>
                                                                 <th>Name</th>
                                                                 <th>Room</th>
+                                                                <th>Note</th>
+                                                                <th>Alternative Room</th>
                                                                 <th>Action</th>
 
                                                             </tr>
@@ -218,6 +220,8 @@
                                                                 <td th:text= "${b.time}">Time</td>
                                                                 <td th:text= "${b.name}">Name</td> 
                                                                 <td th:text= "${b.room}">Room</td>
+                                                                <td th:text= "${b.noteapproval}">Room</td>
+                                                                <td th:text= "${b.alternativeroom}">Room</td>
 
                                                                 <td><button type="button" class="btn btn-primary" th:attr="onclick=|fungsi('${b.id}');|">
                                                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

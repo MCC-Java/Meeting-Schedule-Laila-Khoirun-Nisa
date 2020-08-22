@@ -80,17 +80,18 @@ public void savescheduledecline(String id, String employeeid, String name, Strin
      bookingRepository.adminaccept(id);
     }
     
-    public void adminrefuse(String id, String noteapproval){
-        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
-        bookingRepository.findById(id).get().setKodeapproval(3);
+    public void adminrefuse(String id, String noteapproval, String alternativeroom){
+//        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
+//        bookingRepository.findById(id).get().setAlternativeroom(alternativeroom);
+//        bookingRepository.findById(id).get().setKodeapproval(3);
 
-        bookingRepository.admindecline(id);
+        bookingRepository.admindecline(id, noteapproval, alternativeroom);
     }
     public void adminrefusegetroom(String id, String alternativeroom){
         bookingRepository.findById(id).get().setAlternativeroom(alternativeroom);
         bookingRepository.findById(id).get().setKodeapproval(3);
 
-        bookingRepository.admindecline(id);
+        bookingRepository.admindeclineroom(id, alternativeroom);
     }
     public void updateroom(String id, String room){
         bookingRepository.findById(id).get().setRoom(room);

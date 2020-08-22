@@ -258,11 +258,12 @@ public class MeetingScheduleController {
         
     }
 
-    @GetMapping("/rejectrequest/{id}/{noteapproval}")
+    @GetMapping("/rejectrequest/{id}/{noteapproval}/{alternativeroom}")
     public String decline(@PathVariable(name = "id") String id,
-            @PathVariable(name = "noteapproval") String noteapproval
+            @PathVariable(name = "noteapproval") String noteapproval,
+            @PathVariable(name = "alternativeroom") String alternativeroom
     ) {
-        bookingService.adminrefuse(id, noteapproval);
+        bookingService.adminrefuse(id, noteapproval, alternativeroom);
         return "redirect:/bookingAdminDeclined";
     }
 
