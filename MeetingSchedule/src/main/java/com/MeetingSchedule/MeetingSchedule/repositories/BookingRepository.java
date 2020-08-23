@@ -71,7 +71,7 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
 
     @Query(value = "SELECT * FROM booking b WHERE b.datenow like %?1%", nativeQuery = true)
     Collection<Booking> search(String datenow);
-//List<Booking> findAllWithId(Specification<Region> spec);    
+
 
     @Modifying
     @Query(value = "UPDATE booking b SET b.datenow =:datenow WHERE b.id  =:id", nativeQuery = true)

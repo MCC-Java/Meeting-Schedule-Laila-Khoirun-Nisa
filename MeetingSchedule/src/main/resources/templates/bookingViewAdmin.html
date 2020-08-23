@@ -162,9 +162,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form  th:action ="@{/savebyadmin}" th:object="${booking}" method="post" >
-<!--                                                        <h3 class="text-primary" style="font-size:20px;">Booking ID</h3>
-                                                        <p><input type="text" nama="textId" id="textId" class ="form-control" th:field="*{id}"  ></p>-->
-                                                        <h3 class="text-primary" style="font-size:20px;">Employee ID</h3>
+                                                         <h3 class="text-primary" style="font-size:20px;">Employee ID</h3>
                                                         <p><input type="text" nama="textEmpId" id="textName" class ="form-control" th:field="*{employeeid}"  required></p>
                                                         <h3 class="text-primary" style="font-size:20px;">Name</h3>
                                                         <p><input type="text" nama="textName" id="textName" class ="form-control" th:field="*{name}"  required></p>
@@ -257,15 +255,7 @@
 
 
                                                                     </button>
-                                                                    <!--                                                                            <button class="btn btn-secondary open-update" 
-                                                                                                                                                        href="#update" data-toggle="modal" data-placement="top" title="Edit" th:data-id="${f.id}"th:data-nama="${f.nama}">
-                                                                                                                                                    <i class="fa fa-pencil"></i>
-                                                                    
-                                                                                                                                                </button>
-                                                                                                                                                <a th:href="@{'/fakultas/' + ${f.id}}"  id="deleteId" class="btn btn-danger delete" value="deleteswal" onclick="deleteswal()" data-toggle="tooltip" data-placement="bottom" title="Delete"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                                                    <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                                                                                                                                                    </svg>
-                                                                                                                                                </a>-->
+                                                                   
                                                                 </td>     
                                                             </tr>
                                                         </tbody>
@@ -278,92 +268,7 @@
                             </div>
 
 
-                            <!--                             Page Heading 
-                                                        <div class="clearfix"></div>
-                            
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-sm-12 ">
-                                                                <div class="x_panel">
-                                                                    <div class="x_title">
-                                                                        <h2> </h2>
-                                                                        <ul class="nav navbar-right panel_toolbox">
-                                                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                                                            </li>
-                                                                            <li class="dropdown">
-                                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                                                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                                                                </div>
-                                                                            </li>
-                                                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                                                            </li>
-                                                                        </ul>-->
-                            <!-- DataTales Example -->
-
-                            <!--                                            <div class="x_content">
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12">
-                                                                                    <div class="card-box table-responsive">
-                                                                                        <p class="text-muted font-13 m-b-30"> 
-                                                                                        <h3>Data Request yang di accept</h3>
-                                                                                        <table id="myTable" class="table table-striped table-bordered" style="width:100%">                <thead>
-                                                                                                <tr>
-                                                                                                    <th>Name</th>
-                                                                                                    <th>Time</th>
-                                                                                                    <th>Date Now</th>
-                                                                                                    <th>Room</th>
-                                                                                                    <th>Room</th>
-                            
-                            
-                                                                                                </tr>
-                                                                                            </thead> 
-                                                                                            <tbody>
-                                                                                                <tr th:each ="a: ${declined}"method="GET">
-                                                                                                    <td th:text= "${a.name}">Name</td> 
-                                                                                                    <td th:text= "${a.time}">Time</td>
-                                                                                                    <td th:text= "${a.datenow}">Date Start</td>
-                                                                                                    <td th:text= "${a.room}">Room</td>
-                            
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                            
-                            
-                                                                 DataTales Example 
-                                                                <div class="x_content">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="card-box table-responsive">
-                                                                                <p class="text-muted font-13 m-b-30"> 
-                                                                                <h3>Data Request yang di decline</h3>
-                                                                                <table id="myTable1" class="table table-striped table-bordered" style="width:100%">                
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Name</th>
-                                                                                            <th>Time</th>
-                                                                                            <th>Date Now</th>
-                                                                                            <th>Room</th>
-                                                                                            <th>Action</th>
-                            
-                                                                                        </tr>
-                                                                                    </thead> 
-                                                                                    <tbody>
-                                                                                        <tr th:each ="d: ${accepted}"method="GET">
-                                                                                            <td th:text= "${d.name}">Name</td> 
-                                                                                            <td th:text= "${d.time}">Time</td>
-                                                                                            <td th:text= "${d.datenow}">Date Start</td>
-                                                                                            <td th:text= "${d.room}">Room</td>
-                                                                                            <td> 
-                                                                                                                                                            </td>
-                                                                                    </tbody>
-                                                                                </table>
-                            -->                                                </div>
                     </div>
                 </div><!--
                 -->
@@ -458,8 +363,8 @@
     return [
     document.getElementById('input1').value,
     document.getElementById('input2').value    
- ]
-  }
+    ]
+    }
     }).then((result) => {
     if (result.value) {
 

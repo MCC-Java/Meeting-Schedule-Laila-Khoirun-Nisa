@@ -49,21 +49,13 @@ public class MeetingScheduleController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //convert String to LocalDate
         LocalDate date1 = LocalDate.parse(start, formatter);
-//        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(start);
         String end = booking.getDateend();
         LocalDate date2 = LocalDate.parse(end, formatter);
-//        Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(end);
-
-//        LocalDate date11 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        LocalDate date22 = date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
-//            String formattedDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        bookingService.saveschedule(id, employeeid, name, time, datestart,formattedDate, dateend, room);
-//    }
         bookingService.saverequest(id, employeeid, name, time, datestart, dateend, room);
         return mav;
     }
 
+    //saveadmin
     @PostMapping("/savebyadmin")
     public ModelAndView saveByAdmin(@Valid Booking booking, String id, String employeeid, String name, String time, String datestart, String datenow, String dateend, String room) throws Exception {
         ModelAndView mav = new ModelAndView("redirect:/bookingAdminAccepted");
@@ -75,10 +67,8 @@ public class MeetingScheduleController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //convert String to LocalDate
         LocalDate date1 = LocalDate.parse(start, formatter);
-//        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(start);
         String end = dateend;
         LocalDate date2 = LocalDate.parse(end, formatter);
-//        Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(end);
         String[] part = time.split("\\-");
         String timestart = part[0];
         String timeend = part[1];
@@ -109,8 +99,6 @@ public class MeetingScheduleController {
                         } else {
                             bookingService.savescheduleaccept(id, employeeid, name, time, datestart, formattedDate, dateend, room);
                         }
-//                        bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
-//                        return mav;
                     }
 
                 }
@@ -118,38 +106,19 @@ public class MeetingScheduleController {
         }
             for (int x = timestart2; x < timeend2; x++) {
                 for (int y = x + 1; y <= timeend2; y++) {
-//                    String formattedDate = dateend.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
                     String timestartstring = Integer.toString(x);
                     String timeendstring = Integer.toString(y);
                     String timestartjoin = String.join(".", timestartstring, "00");
                     String timeendjoin = String.join(".", timeendstring, "00");
                     String timejoin = String.join("-", timestartjoin, timeendjoin);
-//                    if (bookingService.getsame(formattedDate, timejoin, room) > 0) {
-//                        bookingService.deletegagal(id);
-//                        ModelAndView mavi = new ModelAndView("redirect:/gagal");
-//                        return mavi;
-//                    } else {
-//                        if (date == date1) {
-//                            bookingService.updatedatenow(id, formattedDate);
-//                        } else {
                             bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
                         }
-//                        bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
-//                        return mav;
                     }
 
 //                }
         return mav;    }
 
-//     @PostMapping("/save")
-//    public ModelAndView save(@Valid Fakultas fakultas) {
-//        
-//        ModelAndView mav = new ModelAndView("redirect:/fakultas");
-//        mav.addObject("fakultass", fakultasService.getAll());
-//        mav.addObject("fakultas", new Fakultas());
-//        fakultasService.save(fakultas); 
-//        return mav; 
-//    }
     //halaman booking employee
     @GetMapping("/booking")
     public String bookingEmployee(Model model) {
@@ -254,7 +223,6 @@ public class MeetingScheduleController {
     public String search(Model model, String datenow) {
         model.addAttribute("booking", new Booking());
         model.addAttribute("bookings", bookingService.getactive());
-//        model.addAttribute("accepted", bookingService.getaccepted());
         model.addAttribute("declined", bookingService.getdeclined());
         model.addAttribute("accepted", bookingService.search(datenow));
         return "redirect:/meetingschedule";
@@ -270,12 +238,13 @@ public class MeetingScheduleController {
         return "bookingViewAdmin";
     }
 
+    //acceptrequest
     @GetMapping("/acceptrequest/{id}")
     public String accept(@PathVariable(name = "id") String id) {
         bookingService.adminaccept(id);
         return "redirect:/saveschedule/{id}";
     }
-
+//save request schedule by admin
     @GetMapping("/saveschedule/{id}")
     public ModelAndView saveSchedule(@PathVariable(name = "id") String id, Booking booking) throws Exception {
         ModelAndView mav = new ModelAndView("redirect:/bookingAdminAccepted");
@@ -290,10 +259,9 @@ public class MeetingScheduleController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //convert String to LocalDate
         LocalDate date1 = LocalDate.parse(start, formatter);
-//        Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(start);
         String end = dateend;
         LocalDate date2 = LocalDate.parse(end, formatter);
-//        Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+
         String[] part = time.split("\\-");
         String timestart = part[0];
         String timeend = part[1];
@@ -324,8 +292,6 @@ public class MeetingScheduleController {
                         } else {
                             bookingService.savescheduleaccept(id, employeeid, name, time, datestart, formattedDate, dateend, room);
                         }
-//                        bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
-//                        return mav;
                     }
 
                 }
@@ -333,35 +299,18 @@ public class MeetingScheduleController {
         }
             for (int x = timestart2; x < timeend2; x++) {
                 for (int y = x + 1; y <= timeend2; y++) {
-//                    String formattedDate = dateend.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     String timestartstring = Integer.toString(x);
                     String timeendstring = Integer.toString(y);
                     String timestartjoin = String.join(".", timestartstring, "00");
                     String timeendjoin = String.join(".", timeendstring, "00");
                     String timejoin = String.join("-", timestartjoin, timeendjoin);
-//                    if (bookingService.getsame(formattedDate, timejoin, room) > 0) {
-//                        bookingService.deletegagal(id);
-//                        ModelAndView mavi = new ModelAndView("redirect:/gagal");
-//                        return mavi;
-//                    } else {
-//                        if (date == date1) {
-//                            bookingService.updatedatenow(id, formattedDate);
-//                        } else {
                             bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
                         }
-//                        bookingService.savescheduleaccept(id, employeeid, name, time, datestart, dateend, dateend, room);
-//                        return mav;
                     }
 
-//                }
         return mav;    }
-        
-//        }
-        
-//        return mav;
 
-//    }
-
+    //rejectrequest
     @GetMapping("/rejectrequest/{id}/{noteapproval}/{alternativeroom}")
     public String decline(@PathVariable(name = "id") String id,
             @PathVariable(name = "noteapproval") String noteapproval,
@@ -400,35 +349,8 @@ public class MeetingScheduleController {
         model.addAttribute("declined", bookingService.getdeclined());
         return "bookingViewAdminAccepted";
     }
-//    @GetMapping("")
-//    public ModelAndView homeLogin(@Valid Booking booking) {
-//        ModelAndView mav = new ModelAndView("index");
-//        mav.addObject("bookings", bookingService.getactive());
-//        mav.addObject("booking", new Booking());
-//        System.out.println("Home jalan");
-//        return mav;
-//    }
-//    @GetMapping("/saverequest/")
-//    public String createrequest(@PathVariable(name = "id") String id, @PathVariable(name = "employeeid") String employeeid,
-//            @PathVariable(name = "name") String name,
-//            @PathVariable(name = "time") String time, @PathVariable(name = "datestart") Date datestart, @PathVariable(name = "dateend") Date dateend,
-//            @PathVariable(name = "room") String room) {
-//        bookingServices.saverequest(id, employeeid, name, time, datestart, dateend, room);
-//        return "redirect:/requestmeeting/" + id;
-//    }
-//        @GetMapping("/requestmeeting/{id}")
-//        public String request
-//        (@PathVariable(name = "nim")
-//        String id, Model model
-//        
-//            ) {
-//        model.addAttribute("booking", bookingService.getById(id));
-////        model.addAttribute("active", Requestservices.findactivemhs(nim));
-////        model.addAttribute("accept", Requestservices.findaccmhs(nim));
-////        model.addAttribute("reject", Requestservices.findrejectmhs(nim));
-//            return "index";
-//        }
 
+    //register
     @GetMapping("/register")
     public ModelAndView Register() {
         ModelAndView mav = new ModelAndView("registerAdmin");
@@ -437,6 +359,7 @@ public class MeetingScheduleController {
         return mav;
     }
 
+    //saveregister
     @PostMapping("/showRegister")
     public ModelAndView showRegister(@Valid Employee employee, String id,
             String name, String password,
@@ -451,6 +374,7 @@ public class MeetingScheduleController {
         return mav;
     }
 
+    //checkregister
     @PostMapping("/checkRegister")
     public ModelAndView checkRegister(@Valid Employee employee, Model model,
             String id, String name,
@@ -463,25 +387,11 @@ public class MeetingScheduleController {
         mav.addObject("employees", employeeService.getAll());
         mav.addObject("employee", new Employee());
 
-//        String name1 = employee.getName();
-//        Integer type = 2;
-//        List<Employee> employees = employeeService.getAll();
-//        boolean result = false;
-//        for (Employee emp : employees) {
-//            System.out.println(emp.getName());
-//            if (emp.getName().equals(name1)) {
-//                result = true;
-//            }
-//        }
-//        if (result == false) {
         employeeService.saveRegister(id, name, password, role, departmentid, teamid);
-//            System.out.println(result);
-//            return "redirect:/register";
-//        } else {
         return mav;
-//        }
     }
 
+    //halaman meeting schedule admin
     @GetMapping("/meetingScheduleAdmin")
     public String scheduleAdmin(Model model
     ) {

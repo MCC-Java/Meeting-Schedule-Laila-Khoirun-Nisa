@@ -42,20 +42,10 @@ public class BookingService {
         return (List<Booking>) bookingRepository.finddecline();
     }
     
-//    public List<Booking> getAll() {
-//        return bookingRepository.findAll();
-//    }    
      public Booking save(Booking booking) {
         return bookingRepository.save(booking);
 
     }
-//       public List<Siswa> getAll() {
-//        return siswaRepository.findAll();
-//    }
-    //read
-//    public List<Booking> getById(String id) {
-//        return bookingRepository.findById(id).get();
-//    }
 
      public void saveschedule(String id, String employeeid, String name, String time, String datestart, String datenow,String dateend, String room){
         bookingRepository.saveschedule(id, employeeid, name, time, datestart, datenow, dateend, room, 1);
@@ -74,16 +64,12 @@ public void savescheduledecline(String id, String employeeid, String name, Strin
         return bookingRepository.findById(id).get();
     }
     public void adminaccept(String id){
-//        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
         bookingRepository.findById(id).get().setKodeapproval(2);
         
      bookingRepository.adminaccept(id);
     }
     
     public void adminrefuse(String id, String noteapproval, String alternativeroom){
-//        bookingRepository.findById(id).get().setNoteapproval(noteapproval);
-//        bookingRepository.findById(id).get().setAlternativeroom(alternativeroom);
-//        bookingRepository.findById(id).get().setKodeapproval(3);
 
         bookingRepository.admindecline(id, noteapproval, alternativeroom);
     }
@@ -140,7 +126,6 @@ public void deletegagal(String id){
     }
 
 public void deletegagaladmin(String id){
-//        bookingRepository.findById(id);
         bookingRepository.deletegagal(id);
     }
 }

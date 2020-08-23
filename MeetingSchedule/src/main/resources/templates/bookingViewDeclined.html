@@ -57,12 +57,7 @@
                             <div class="menu_section">
                                 <h3>General</h3>
                                 <ul class="nav side-menu">
-                                    <!--                                    <li><a href="/fakultas/user"><i class="fa fa-institution"></i> Fakultas </a> 
-                                                                        </li>
-                                                                        <li><a href="/jurusan/user"><i class="fa fa-book"></i> Jurusan </a> 
-                                                                        </li>
-                                                                        <li><a href="/siswa/user"><i class="fa fa-users"></i> Siswa</a> 
-                                                                        </li> -->
+                                    
                                     <li><a href="/meetingschedule" ><i class="fa fa-calendar"></i> Meeting Schedule </span></a>                                    
 
                                     <li><a ><i class="fa fa-user"></i> Booking <span class="fa fa-chevron-down"></span></a>
@@ -143,13 +138,7 @@
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
-                                    <!-- <button class="btn btn-primary open-new" 
-                                             href="#new" data-toggle="modal" data-placement="top" title="New" th:data-id="null" th:data-name="null">
                                     
-                                    
-                                                                                <i class="fa fa-plus"></i>
-                                    
-                                                                            </button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="newLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -325,22 +314,22 @@
     });
 </script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
     var t = $('#example1').DataTable( {
-        "columnDefs": [ {
-            "searchable": false,
-            "orderable": false,
-            "targets": 0
-        } ],
-        "order": [ [  1, 'asc'  ] ]
+    "columnDefs": [ {
+    "searchable": false,
+    "orderable": false,
+    "targets": 0
+    } ],
+    "order": [ [  1, 'asc'  ] ]
     } );
- 
+
     t.on( 'order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        } );
+    t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+    cell.innerHTML = i+1;
+    } );
     } ).draw();
-} );
+    } );
 
 </script>
 
