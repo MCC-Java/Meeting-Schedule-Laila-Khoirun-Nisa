@@ -138,4 +138,9 @@ public void deletegagal(String id){
         bookingRepository.findById(id);
         bookingRepository.deletegagal(id);
     }
+
+public void deletegagaladmin(String id){
+//        bookingRepository.findById(id);
+        bookingRepository.deletegagal(id);
+    }
 }

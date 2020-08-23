@@ -43,27 +43,32 @@ public class Main {
       
   int timestart2=Integer.parseInt(timestart1);
   int timeend2=Integer.parseInt(timeend1);
-  
+//      System.out.println(timeend.substring(0,1));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        convert String to LocalDate
+LocalDate date1 = LocalDate.parse(start, formatter);
+        String end = "18/08/2016";
+        LocalDate date2 = LocalDate.parse(end, formatter);
+
+    for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
+          
+           
   for (int x=timestart2; x<timeend2; x++){
       for (int y=x+1;y<=timeend2;y++){
-      System.out.println(x+"-"+y);
+      System.out.println("jam"+x+"-"+y+"tanggal"+date);
   }
-    
-         
-     }
-      
-//      System.out.println(timeend.substring(0,1));
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        //convert String to LocalDate
-//LocalDate date1 = LocalDate.parse(start, formatter);
-//        String end = "18/08/2016";
-//        LocalDate date2 = LocalDate.parse(end, formatter);
-
-//    for (LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)) {
-//           System.out.println(date);
+   
+    } 
      
-//    }      System.out.println(date2);
+     }for (int x=timestart2; x<timeend2; x++){
+      for (int y=x+1;y<=timeend2;y++){
+      System.out.println("jam"+x+"-"+y+"tanggal"+date2);
+  }
+   
     }
+    
+      
+}
 
   
   

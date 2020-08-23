@@ -161,9 +161,9 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form  th:action ="@{/save}" th:object="${booking}" method="post" >
-                                                        <h3 class="text-primary" style="font-size:20px;">Booking ID</h3>
-                                                        <p><input type="text" nama="textId" id="textId" class ="form-control" th:field="*{id}"  ></p>
+                                                    <form  th:action ="@{/savebyadmin}" th:object="${booking}" method="post" >
+<!--                                                        <h3 class="text-primary" style="font-size:20px;">Booking ID</h3>
+                                                        <p><input type="text" nama="textId" id="textId" class ="form-control" th:field="*{id}"  ></p>-->
                                                         <h3 class="text-primary" style="font-size:20px;">Employee ID</h3>
                                                         <p><input type="text" nama="textEmpId" id="textName" class ="form-control" th:field="*{employeeid}"  required></p>
                                                         <h3 class="text-primary" style="font-size:20px;">Name</h3>
